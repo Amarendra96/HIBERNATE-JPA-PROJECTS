@@ -1,0 +1,18 @@
+package com.amar.hibernate.Country_State_Project;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
+@Entity
+public class State {
+	@Id
+	private int stateId;
+	private String stateName;
+	private int statePopulation;
+	private String stateChiefMinister;
+	@ManyToOne
+	private Country country;
+	
+
+}

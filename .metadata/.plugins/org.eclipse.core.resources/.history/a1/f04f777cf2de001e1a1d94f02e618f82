@@ -1,0 +1,5 @@
+package com.amar.hibernate.Country_State_Project;
+
+public class State {
+
+}

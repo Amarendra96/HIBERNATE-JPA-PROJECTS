@@ -1,0 +1,223 @@
+package com.amar.hibernate.Country_State_Project;
+
+import java.util.List;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+
+import com.amar.hibernate.Country_State_Project.Country;
+import com.amar.hibernate.Country_State_Project.CountryStateServ;
+import com.amar.hibernate.Country_State_Project.State;
+
+import org.hibernate.Query;
+
+public class CountryStateServ {
+	public static Session getSession() {
+		Configuration cfg = new Configuration().configure().addAnnotatedClass(Country.class).addAnnotatedClass(State.class);
+		SessionFactory sf = cfg.buildSessionFactory();
+		Session session = sf.openSession();
+		return session;
+	}
+	public static void addCountry(Country country) {
+		Session session = CountryStateServ.getSession();
+		Transaction transaction = session.beginTransaction();
+		session.save(country);
+		transaction.commit();
+		session.close();
+		System.out.println("Country added sucessfully!");
+	}
+	public static void findCountryById(int countryId) {
+		Session session = CountryStateServ.getSession();
+		Transaction transaction = session.beginTransaction();
+		Query<Country> query = session.createQuery("from Country where countryId = " + countryId);
+		List<Country> country = query.getResultList();
+		System.out.println(country);
+		transaction.commit();
+		session.close();
+	}
+	public static void findCountryByName(String countryName) {
+		Session session = CountryStateServ.getSession();
+		Transaction transaction = session.beginTransaction();
+		Query<Country> query = session.createQuery("from Country where countryName = '" + countryName + "'");
+		List<Country> country = query.getResultList();
+		System.out.println(country);
+		transaction.commit();
+		session.close();
+	}
+	public static void findAllCountries() {
+		Session session = CountryStateServ.getSession();
+		Transaction transaction = session.beginTransaction();
+		Query<Country> query = session.createQuery("from Country");
+		List<Country> countryList = query.getResultList();
+		for (Country country : countryList) {
+
+			System.out.println(country);
+		}
+		transaction.commit();
+		session.close();
+	}
+	public static void findCountryByContinent(String continent) {
+		Session session = CountryStateServ.getSession();
+		Transaction transaction = session.beginTransaction();
+		Query<Country> query = session.createQuery("from Country where continent = '"+continent+"'");
+		List<Country> list = query.getResultList();
+		for (Country country : list) {
+			System.out.println(country);
+		}
+		transaction.commit();
+		session.close();
+	}
+	public static void findCountryByPresident(String countryPresident) {
+		Session session = CountryStateServ.getSession();
+		Transaction transaction = session.beginTransaction();
+		Query<Country> query = session.createQuery("from Country where countryPresident = '" + countryPresident + "'");
+		List<Country> country = query.getResultList();
+		System.out.println(country);
+		transaction.commit();
+		session.close();
+	}	
+	public static void addState(State state, int countryId) {
+		Session session = CountryStateServ.getSession();
+		Transaction transaction = session.beginTransaction();
+		try {
+			Country country = session.get(Country.class, countryId);
+			state.setCountry(country);
+			List<State> states = country.getStates();
+			states.add(state);
+			session.save(state);
+			System.out.println("State saved sucessfully!");
+
+		} catch (Exception e) {
+			System.out.println("There is no country available");
+		}
+		transaction.commit();
+		session.close();
+	}
+	public static void deleteCountryById(int countryId) {
+		Session session = CountryStateServ.getSession();
+		Transaction transaction = session.beginTransaction();
+		Country country = session.get(Country.class, countryId);
+		List<State> states = country.getStates();
+		for (State state : states) {
+			session.delete(state);
+		}
+		session.delete(country);
+		transaction.commit();
+		session.close();
+		System.out.println("Country deleted sucessfully!");
+	}
+
+	public static void deleteCountryByName(String countryName) {
+		Session session = CountryStateServ.getSession();
+		Transaction transaction = session.beginTransaction();
+		Query<Country> query = session.createQuery("from Country where countryName = '" + countryName + "'");
+		List<Country> countryList = query.getResultList();
+		Country country = countryList.get(0);
+		List<State> states = country.getStates();
+		for (State state : states) {
+			session.delete(state);
+		}
+		session.delete(country);
+		transaction.commit();
+		session.close();
+		System.out.println("Country deleted sucessfully!");
+	}
+
+	public static void updatePresidentByCountryName(String countryName, String countryPresident) {
+		Session session = CountryStateServ.getSession();
+		Transaction transaction = session.beginTransaction();
+		Query<Country> query = session.createQuery("from Country where countryName = '" +countryName+ "'");
+		List<Country> countryList = query.getResultList();
+		Country country = countryList.get(0);
+		country.setCountryPresident(countryPresident);
+		session.update(country);
+		transaction.commit();
+		session.close();
+		System.out.println("updated sucessfully!");
+	}
+
+	public static void updatePopulationByCountryId(int countryId, int countryPopulation) {
+		Session session = CountryStateServ.getSession();
+		Transaction transaction = session.beginTransaction();
+		Country country = session.get(Country.class, countryId);
+		country.setCountryPopulation(countryPopulation);
+		session.update(country);
+		transaction.commit();
+		session.close();
+		System.out.println("updated sucessfully!");
+	}
+    public static void findStateById(int stateId) {
+    	Session session = CountryStateServ.getSession();
+    	Transaction transaction = session.beginTransaction();
+    	Query<State> query = session.createQuery("from State where stateId=   "+stateId  );
+    	List<State> states = query.getResultList();
+    	System.out.println(states);
+    	transaction.commit();
+    	session.close();
+    }
+    public static void findStateByName(String stateName) {
+    	Session session = CountryStateServ.getSession();
+    	Transaction transaction = session.beginTransaction();
+    	Query<State> query = session.createQuery("from State where stateName=   '"+stateName+ "'" );
+    	List<State> states = query.getResultList();
+    	System.out.println(states);
+    	transaction.commit();
+    	session.close();
+    }
+   
+    public static void findStateByChiefMinister(String stateChiefMinister) {
+    	Session session = CountryStateServ.getSession();
+    	Transaction transaction = session.beginTransaction();
+    	Query<State> query = session.createQuery("from State where stateChiefMinisterName=   '"+stateChiefMinister+ "'" );
+    	List<State> states = query.getResultList();
+    	System.out.println(states);
+    	transaction.commit();
+    	session.close();
+    }
+    
+    public static void findStatesByCountryId(int countryId) {
+    	Session session = CountryStateServ.getSession();
+    	Transaction transaction = session.beginTransaction();
+    	Country country = session.get(Country.class, countryId);
+    	List<State> states = country.getStates();
+    	for (State state : states) {
+    		System.out.println(state);
+		}
+    	transaction.commit();
+		session.close();
+    }
+    public static void findStatesByCountryName(String countryName) {
+    	Session session = CountryStateServ.getSession();
+    	Transaction transaction = session.beginTransaction();
+    	Query<Country> query = session.createQuery("from Country where countryName = '" + countryName + "'");
+		List<Country> countryList = query.getResultList();
+		Country country = countryList.get(0);
+		List<State> list = country.getStates();
+		for (State state : list) {
+			System.out.println(state);
+		}
+		transaction.commit();
+		session.close();
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}

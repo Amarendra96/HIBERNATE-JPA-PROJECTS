@@ -1,0 +1,73 @@
+package com.amar.hibernate.Country_State_Project;
+
+import java.util.Arrays;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+
+public class App 
+{
+	public static void main( String[] args )
+	{
+		
+		/*
+		 * State s1= new State(); s1.setStateId(101); s1.setStateName("India");
+		 * s1.setStatePopulation(50000000); s1.setStateChiefMinister("Navin Pattnaik");
+		 * 
+		 * State s2 = new State(); s2.setStateId(102); s2.setStateName("Telengana");
+		 * s2.setStatePopulation(60000000); s2.setStateChiefMinister("Prajwal Reddy");
+		 * 
+		 * 
+		 * State s3 = new State(); s3.setStateId(103); s3.setStateName("Karnataka");
+		 * s3.setStatePopulation(45000000);
+		 * s3.setStateChiefMinister("KrishnaDasi Amma");
+		 * 
+		 * State s4 = new State(); s4.setStateId(201); s4.setStateName("Callifornia");
+		 * s4.setStatePopulation(450000); s4.setStateChiefMinister("John Dyk");
+		 * 
+		 * State s5 = new State(); s5.setStateId(202); s5.setStateName("Texas");
+		 * s5.setStatePopulation(50000); s5.setStateChiefMinister("Stiv Moraco");
+		 * 
+		 * Country c1 = new Country(); c1.setCountryId(1); c1.setCountryName("India");
+		 * c1.setContinent("Asia"); c1.setCountryPopulation(1500000000);
+		 * c1.setCountryPresident("Mrs.Droupadi Murmu");
+		 * c1.setCountryPrimeMinister("Mr.Narendra Damodar Das Modi");
+		 * c1.setStates(Arrays.asList(s1,s2,s3));
+		 * 
+		 * Country c2 = new Country(); c2.setCountryId(2);
+		 * c2.setCountryName("United State"); c2.setContinent("Europe");
+		 * c2.setCountryPopulation(500000000); c2.setCountryPresident(" Alexzandar");
+		 * c2.setCountryPrimeMinister("No PM"); c2.setStates(Arrays.asList(s4,s5));
+		 * 
+		 * s1.setCountry(c1); s2.setCountry(c1); s3.setCountry(c1); s4.setCountry(c2);
+		 * s5.setCountry(c2);
+		 * 
+		 * Configuration cfg= new
+		 * Configuration().configure().addAnnotatedClass(Country.class).
+		 * addAnnotatedClass(State.class); SessionFactory sf =
+		 * cfg.buildSessionFactory(); Session session = sf.openSession(); Transaction
+		 * transaction = session.beginTransaction();
+		 * 
+		 * session.save(s1); session.save(s2); session.save(s3); session.save(s4);
+		 * session.save(s5); session.save(c1); session.save(c2);
+		 * 
+		 * transaction.commit(); session.close();
+		 */
+		
+		/*
+		 * Country c3 = new Country(); c3.setCountryId(3);
+		 * c3.setCountryName("Pakistan"); c3.setContinent("Asia");
+		 * c3.setCountryPopulation(1000000000); c3.setCountryPresident("Harsh khan");
+		 * c3.setCountryPrimeMinister("Jakob khan"); CountryStateServ.addCountry(c3);
+		 */
+		
+		
+		
+//		  Country country = new Country(); CountryStateServ.addCountry(country);
+		
+//		CountryStateServ.addCountry();
+		 
+	}
+}

@@ -1,0 +1,26 @@
+package com.amar.hibernate.Country_State_Project;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+
+public class CountryStateServ {
+
+	public static Session getSession() {
+		Configuration cfg = new Configuration().configure().addAnnotatedClass(Country.class).addAnnotatedClass(State.class);
+		SessionFactory sf = cfg.buildSessionFactory();
+		Session session = sf.openSession();
+		return session;
+	}
+	public static void addCountry(Country country) {
+		Session session = CountryStateServ.getSession();
+		Transaction transaction = session.beginTransaction();
+		session.save(country);
+		transaction.commit();
+		session.close();
+		System.out.println("Country added sucessfully!");
+	}
+	
+
+}
